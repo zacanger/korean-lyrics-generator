@@ -4,13 +4,14 @@
 
 --------
 
-Experiment to generate realistic-sounding Korean lyrics
-
-WIP. Original project: <https://github.com/baehyunsol/korean_saying_generator>
+Experiment to generate realistic-sounding Korean lyrics. For use by songwriters
+who don't speak much Korean. Not intended to produce actual quality lyrics, just
+correct-ish series of syllables in the desired patterns. Originally based on
+[this code](https://github.com/baehyunsol/korean_saying_generator). WIP.
 
 ## Installation
 
-Clone it
+Clone it, and have Python installed.
 
 ## Usage
 
