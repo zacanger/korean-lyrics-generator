@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-import korean
+import sys
 import random
+import korean
 
 
 class yong_eon:
     def __init__(self, base, verb, nounHa, obj):
-
         self.base = base
         self.verb = verb
         self.nounHa = nounHa  # ex) 성공 + -하
@@ -18,88 +18,64 @@ class yong_eon:
 
 
 def josa(noun, type_):
-
     if type_ == 1:
         return noun
 
     # 이/가
     elif type_ == 2:
-
         if korean.hasBatchim(noun[-1]):
             return noun + "이"
-
         else:
-
             if noun == "나":
                 noun = "내"
-
             elif noun == "너":
                 noun = "네"
-
             return noun + "가"
 
     # '의'
     elif type_ == 3:
         return noun + "의"
-
     # '을/를'
     elif type_ == 4:
-
         if korean.hasBatchim(noun[-1]):
             return noun + "을"
-
         else:
             return noun + "를"
-
     # '은/는'
     elif type_ == 5:
-
         if korean.hasBatchim(noun[-1]):
             return noun + "은"
-
         else:
             return noun + "는"
-
     # '이다'
     elif type_ == 6:
         return noun + "이다"
-
     # '와/과'
     elif type_ == 7:
-
         if korean.hasBatchim(noun[-1]):
             return noun + "과"
-
         else:
             return noun + "와"
 
 
 def hwalyong(yong_eon, type_):
-
     if type_ == 1:
         return yong_eon.base + "다"
-
     elif type_ == 2:
-
         if yong_eon.verb:
             return yong_eon.base + "는"
-
         if korean.hasBatchim(yong_eon.last):
             return yong_eon.base + "은"
-
         tmp = korean.divide(yong_eon.last)
         tmp[2] = "ㄴ"
 
         return yong_eon.base[:-1] + korean.combine(tmp)
 
     elif type_ == 3:
-
         if yong_eon.nounHa:
             return yong_eon.base[:-1]
-
         if korean.hasBatchim(yong_eon.last):
             return yong_eon.base + "음"
-
         tmp = korean.divide(yong_eon.last)
         tmp[2] = "ㅁ"
 
@@ -107,12 +83,9 @@ def hwalyong(yong_eon, type_):
 
     elif type_ == 4:
         return yong_eon.base + "자"
-
     elif type_ == 5:
         return yong_eon.base + "고 싶다"
-
     elif type_ == 6:
-
         if korean.hasBatchim(yong_eon.last):
             return yong_eon.base + "으면"
 
@@ -123,7 +96,6 @@ def hwalyong(yong_eon, type_):
 
 
 def _myungsa(yong_eon):
-
     return hwalyong(yong_eon, 3)
 
 
@@ -145,7 +117,6 @@ yong_eons = [
     yong_eon("놓", verb=True, nounHa=False, obj=True),
     yong_eon("늙", verb=False, nounHa=False, obj=False),
     yong_eon("닫히", verb=False, nounHa=False, obj=False),
-    # yong_eon('달리', verb=True, nounHa=False, obj=True), '달리기' sounds better than '달림'
     yong_eon("던지", verb=True, nounHa=False, obj=True),
     yong_eon("떠나", verb=True, nounHa=False, obj=True),
     yong_eon("똑똑하", verb=False, nounHa=False, obj=False),
@@ -291,14 +262,12 @@ nouns.sort()
 
 
 def wordGen(type_):
-
     # nouns
     if type_ // 10 == 0:
         return josa(random.choice(nouns), type_ % 10) + " "
 
     # yong_eons without obj
     elif type_ // 10 == 1:
-
         if type_ % 10 == 4:
             return hwalyong(random.choice(verbs), 4)
 
@@ -306,7 +275,6 @@ def wordGen(type_):
 
     # yong_eons with obj
     elif type_ // 10 == 2:
-
         if type_ % 10 == 4:
             return hwalyong(random.choice(objVerbs), 4)
 
@@ -314,12 +282,9 @@ def wordGen(type_):
 
 
 def sentenceGen(seq):
-
     result = ""
-
     for s in seq:
         result += wordGen(s)
-
     return result
 
 
@@ -332,6 +297,15 @@ sequences = [
     (3, 5, 6),
     (7, 4, 14),
 ]
+
+
+# TODO: use this to get lines of the correct length
+# allow and preserve newlines in the output
+def get_patterns():
+    with open(sys.argv[1], "r") as pattern_file:
+        lines = pattern_file.readlines()
+        nums = list(map(int, lines))
+        print(nums)
 
 
 def main():

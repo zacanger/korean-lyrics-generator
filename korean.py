@@ -44,6 +44,7 @@ cho = (
     "ㅍ",
     "ㅎ",
 )
+
 joong = (
     "ㅏ",
     "ㅐ",
@@ -67,6 +68,7 @@ joong = (
     "ㅢ",
     "ㅣ",
 )
+
 jong = (
     None,
     "ㄱ",
@@ -97,6 +99,7 @@ jong = (
     "ㅍ",
     "ㅎ",
 )
+
 ja = (
     "ㄱ",
     "ㄲ",
@@ -129,6 +132,7 @@ ja = (
     "ㅍ",
     "ㅎ",
 )
+
 mo = joong
 
 qwerty2kor = {
@@ -171,7 +175,6 @@ kor2qwerty = dict((v, k) for k, v in qwerty2kor.items())
 
 
 def divide(char):
-
     ord_ = ord(char)
 
     if ord_ < 44032 or ord_ > 55203:
@@ -187,19 +190,15 @@ def divide(char):
 
 
 def hasBatchim(char):
-
     return 0 != ((ord(char) - 44032) % 588) % 28
 
 
 # chars -> [cho, joong, jong]
 def combine(chars):
-
     if len(chars) == 1:
         return chars[0]
-
     if type(chars) == tuple:
         chars = list(chars)
-
     if len(chars) == 2:
         chars.append(None)
 
@@ -212,15 +211,11 @@ def combine(chars):
 
 
 def isKor(char):
-
     ord_ = ord(char)
-
     if 44031 < ord_ < 55204:
         return True
-
     if 12592 < ord_ < 12644:
         return True
-
     return False
 
 

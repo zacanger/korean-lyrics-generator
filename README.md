@@ -14,7 +14,27 @@ Clone it
 
 ## Usage
 
-`./gen.py`
+`./gen.py pattern-file`
+
+`pattern-file` should contain a list of newline-delineated integers representing
+the amount of syllables you want in each line of the resultant lyrics. Example
+(from the first verse of [Butterfly by
+LOONA](https://www.youtube.com/watch?v=XEOCbFJjRw0)):
+
+```
+5
+7
+6
+5
+7
+5
+
+8
+8
+9
+8
+8
+```
 
 ## TODO:
 
