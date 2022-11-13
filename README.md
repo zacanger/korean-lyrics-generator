@@ -11,11 +11,11 @@ correct-ish series of syllables in the desired patterns. Originally based on
 
 ## Installation
 
-Clone it, and have Python installed.
+Clone or download the project, and have Python installed.
 
 ## Usage
 
-`./gen.py pattern-file`
+`./generate.py pattern-file`
 
 `pattern-file` should contain a list of newline-delineated integers representing
 the amount of syllables you want in each line of the resultant lyrics. Example

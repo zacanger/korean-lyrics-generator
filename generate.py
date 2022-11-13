@@ -299,8 +299,11 @@ sequences = [
 ]
 
 
-# TODO: use this to get lines of the correct length
+# TODO:
+# validate that the file only contains numbers and newlines
 # allow and preserve newlines in the output
+# pass this through to sentencegen and wordgen
+# to get lines of the correct length
 def get_patterns():
     with open(sys.argv[1], "r") as pattern_file:
         lines = pattern_file.readlines()
