@@ -1,5 +1,7 @@
 # korean-lyrics-generator
 
+## WIP
+
 [![Support with PayPal](https://img.shields.io/badge/paypal-donate-yellow.png)](https://paypal.me/zacanger) [![Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://www.patreon.com/zacanger) [![ko-fi](https://img.shields.io/badge/donate-KoFi-yellow.svg)](https://ko-fi.com/U7U2110VB)
 
 --------
@@ -7,7 +9,7 @@
 Experiment to generate realistic-sounding Korean lyrics. For use by songwriters
 who don't speak much Korean. Not intended to produce actual quality lyrics, just
 correct-ish series of syllables in the desired patterns. Originally based on
-[this code](https://github.com/baehyunsol/korean_saying_generator). WIP.
+[this code](https://github.com/baehyunsol/korean_saying_generator).
 
 ## Installation
 
@@ -36,9 +38,5 @@ LOONA](https://www.youtube.com/watch?v=XEOCbFJjRw0)):
 8
 8
 ```
-
-## TODO:
-
-Syllable count map
 
 [LICENSE](./LICENSE.md)
