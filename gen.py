@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import korean
 import random
 
@@ -331,7 +333,13 @@ sequences = [
     (7, 4, 14),
 ]
 
-if __name__ == "__main__":
 
-    while input() != "q":
-        print(sentenceGen(random.choice(sequences)))
+def main():
+    s = ""
+    for i in range(20):
+        s += sentenceGen(random.choice(sequences)) + "\n"
+    return s
+
+
+if __name__ == "__main__":
+    print(main())
