@@ -4,6 +4,8 @@
 
 --------
 
+Experiment to generate realistic-sounding Korean lyrics
+
 WIP. Original project: <https://github.com/baehyunsol/korean_saying_generator>
 
 ## Installation
