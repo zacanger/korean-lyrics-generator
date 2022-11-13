@@ -304,22 +304,29 @@ sequences = [
 # pass this through to sentencegen and wordgen
 # to get lines of the correct length
 def get_patterns():
+    if len(sys.argv) != 2:
+        print("Usage: generate.py pattern-file")
+        sys.exit(0)
+
     with open(sys.argv[1], "r") as pattern_file:
         lines = pattern_file.readlines()
+        nums = []
         for line in lines:
-            line = line.strip()
-            if line == "":
-                pass
+            maybe = line.strip()
+            if maybe == "":
+                nums.append("\n")
             else:
                 try:
-                    line = int(line)
+                    num = int(line)
+                    nums.append(num)
                 except ValueError:
                     print("Input should be lines containing a single integer!")
                     sys.exit(1)
-        print(nums)
+        return nums
 
 
 def main():
+    syllable_pattern = get_patterns()
     s = ""
     for i in range(20):
         s += sentenceGen(random.choice(sequences)) + "\n"

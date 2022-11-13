@@ -26,3 +26,4 @@ dist-*
 parts/
 venv/
 x/
+/pattern
