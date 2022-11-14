@@ -3,6 +3,7 @@
 import sys
 import random
 import korean
+import itertools
 
 
 class yong_eon:
@@ -299,10 +300,6 @@ sequences = [
 ]
 
 
-# TODO:
-# allow and preserve newlines in the output
-# pass this through to sentencegen and wordgen
-# to get lines of the correct length
 def get_patterns():
     if len(sys.argv) != 2:
         print("Usage: generate.py pattern-file")
@@ -322,15 +319,53 @@ def get_patterns():
                 except ValueError:
                     print("Input should be lines containing a single integer!")
                     sys.exit(1)
-        return nums
+
+        tuples = list(itertools.product(nums, " "))
+        return tuples
+
+
+def replace_pattern(tuples):
+    # TODO:
+    # we want to basically split this into verses/sections
+    # then use the tuple-replacing code in main to care about
+    # multiple lines, maybe up to 4
+    # also we really want to check against space-sep'd strings in the gen'd
+    # words, not individual characters, so we're not starting a line
+    # with a particle or whatever
+
+    phrases = []
+    for idx, tup in enumerate(tuples):
+        if idx < len(tuples) - 1:
+            if tup[0] == "\n":
+                continue
+            if tup[1] == " ":
+                desired_len = tup[0]
+                while True:
+                    phrase_maybe = sentenceGen(random.choice(sequences))
+                    phrase_len = len(phrase_maybe)
+                    if phrase_len == desired_len:
+                        tup = tup[0:1] + (phrase_maybe,)
+                        break
+                    else:
+                        next_tuple = tuples[idx + 1]
+                        next_desired_len = next_tuple[0]
+                        if phrase_len == desired_len + next_desired_len:
+                            split = [c for c in phrase_maybe]
+                            first = "".join(split[0:desired_len])
+                            second = "".join(split[desired_len:desired_len +
+                                                   next_desired_len])
+                            tup = tup[0:1] + (first,)
+                            next_tuple = next_tuple[0:1] + (second,)
+                            break
+
+    return tuples
 
 
 def main():
     syllable_pattern = get_patterns()
-    s = ""
-    for i in range(20):
-        s += sentenceGen(random.choice(sequences)) + "\n"
-    return s
+    results = replace_pattern(syllable_pattern)
+    relevant_pieces = [r[1] for r in results]
+    return "\n".join(relevant_pieces)
 
 
 if __name__ == "__main__":
