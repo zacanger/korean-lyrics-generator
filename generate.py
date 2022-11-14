@@ -2,8 +2,9 @@
 
 import sys
 import random
-import korean
+import collections
 import itertools
+import korean
 
 
 class yong_eon:
@@ -310,7 +311,7 @@ def get_patterns():
         nums = []
         for line in lines:
             maybe = line.strip()
-            if maybe == "":
+            if maybe.strip() == "":
                 nums.append("\n")
             else:
                 try:
@@ -320,21 +321,28 @@ def get_patterns():
                     print("Input should be lines containing a single integer!")
                     sys.exit(1)
 
-        tuples = list(itertools.product(nums, " "))
-        return tuples
+        verses = [list(y) for x, y in itertools.groupby(nums, lambda z: z ==
+                                                        "\n") if not x]
+
+        final = []
+        for verse in verses:
+            verse = list(zip(verse, strict=True))
+            final.append(verse)
+        return final
 
 
 def replace_pattern(tuples):
     # TODO:
-    # we want to basically split this into verses/sections
-    # then use the tuple-replacing code in main to care about
-    # multiple lines, maybe up to 4
+    # use the tuple-replacing code to care about
+    # multiple lines, up to the end of the verse
     # also we really want to check against space-sep'd strings in the gen'd
     # words, not individual characters, so we're not starting a line
     # with a particle or whatever
+    # don't forget to re-join verses with an extra newline!
 
-    phrases = []
     for idx, tup in enumerate(tuples):
+        print(idx, tup)
+        continue
         if idx < len(tuples) - 1:
             if tup[0] == "\n":
                 continue
@@ -364,8 +372,9 @@ def replace_pattern(tuples):
 def main():
     syllable_pattern = get_patterns()
     results = replace_pattern(syllable_pattern)
-    relevant_pieces = [r[1] for r in results]
-    return "\n".join(relevant_pieces)
+    # relevant_pieces = [r[1][1] for r in results]
+    # return "\n".join(relevant_pieces)
+    return results
 
 
 if __name__ == "__main__":
