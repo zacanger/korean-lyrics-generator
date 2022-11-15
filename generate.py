@@ -323,92 +323,64 @@ def get_patterns():
 
         verses = [list(y) for x, y in itertools.groupby(nums, lambda z: z ==
                                                         "\n") if not x]
-
-        final = []
-        for verse in verses:
-            verse = list(zip(verse, strict=True))
-            final.append(verse)
-        return final
-
-
-def sum_syllables_in_verse(verse_tuples):
-    total = 0
-    for idx, (syl, _x) in enumerate(verse_tuples):
-        total += syl
-    return total
-
-
-def format_verse(verse_tuples):
-    verse_string = ""
-    for _x, (_y, hangul) in enumerate(verse_tuples):
-        verse_string += (hangul + "\n")
-    return verse_string
-
-
-def format_lyrics(final_tuples_list):
-    lyrics = ""
-    for verse in final_tuples_list:
-        lyrics += (format_verse(verse) + "\n")
-    return lyrics
+        return verses
 
 
 def generate_sentences_until_it_fits(verse_length):
-    phrase_maybe = sentence_gen(random.choice(sequences))
-    phrase_len = len(phrase_maybe)
+    found_lyrics = ""
+    found_matches = False
+    phrases = []
+    while True:
+        phrase = sentence_gen(random.choice(sequences))
+        phrases.append(phrase)
+        phrases_lengths = (lambda x: [len(i) for i in x])(phrases)
+
+        for i, number in enumerate(phrases_lengths):
+            complementary = verse_length - number
+            if complementary in phrases_lengths[i:]:
+                for p in phrases:
+                    if len(p) == number:
+                        found_lyrics += (p + " ")
+                        break
+                for p in phrases:
+                    if len(p) == complementary:
+                        found_lyrics += (p + " ")
+                found_matches = True
+                break
+
+        if found_matches is True:
+            break
+    return found_lyrics
+
+
+def re_split_verse_lines(verse, verse_lyrics):
+    res = []
+    start = 0
+    for line in verse:
+        # TODO: this needs to not count whitespace in the length
+        res.append(verse_lyrics[start:start+line].strip())
+        start += line
+    return "\n".join(res)
 
 
 def replace_pattern(verses):
-    # TODO:
-    #
-    # future: would be good to check that we're not starting lines on particles
-    # or whatever
-    #
-    # At this point tuples is of the form [[(1,),(1,)],[(1,),(1,)]]
-    #
-    # for verse in verse
-    # sum_syllables_in_verse(verse)
-    # sentence_gen until we have one or more strings with the right char count
-    # to exactly match the above sum
-    # split that sentence based on the first element of each tuple and pack
-    # the split strings into the second element of the tuples
-    # then with the result, call and return format_lyrics(that_stuff)
+    # TODO: (future) would be good to check that we're not starting lines on
+    # particles or whatever
 
-    return verses
+    song_lyrics = ""
 
-    for idx, tup in enumerate(tuples):
-        print(idx, tup)
-        continue
-        if idx < len(tuples) - 1:
-            if tup[0] == "\n":
-                continue
-            if tup[1] == " ":
-                desired_len = tup[0]
-                while True:
-                    phrase_maybe = sentence_gen(random.choice(sequences))
-                    phrase_len = len(phrase_maybe)
-                    if phrase_len == desired_len:
-                        tup = tup[0:1] + (phrase_maybe,)
-                        break
-                    else:
-                        next_tuple = tuples[idx + 1]
-                        next_desired_len = next_tuple[0]
-                        if phrase_len == desired_len + next_desired_len:
-                            split = [c for c in phrase_maybe]
-                            first = "".join(split[0:desired_len])
-                            second = "".join(split[desired_len:desired_len +
-                                                   next_desired_len])
-                            tup = tup[0:1] + (first,)
-                            next_tuple = next_tuple[0:1] + (second,)
-                            break
+    for verse in verses:
+        sylls = sum(verse)
+        verse_lyrics = generate_sentences_until_it_fits(sylls)
+        formatted_verse_lyrics = re_split_verse_lines(verse, verse_lyrics)
+        song_lyrics += (formatted_verse_lyrics + "\n\n")
 
-    return tuples
+    return song_lyrics.strip()
 
 
 def main():
     syllable_pattern = get_patterns()
     results = replace_pattern(syllable_pattern)
-    # relevant_pieces = [r[1][1] for r in results]
-    # return "\n".join(relevant_pieces)
     return results
 
 
