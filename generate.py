@@ -263,7 +263,7 @@ nouns += [
 nouns.sort()
 
 
-def wordGen(type_):
+def word_gen(type_):
     # nouns
     if type_ // 10 == 0:
         return josa(random.choice(nouns), type_ % 10) + " "
@@ -283,10 +283,10 @@ def wordGen(type_):
         return hwalyong(random.choice(objYongEons), type_ % 10) + " "
 
 
-def sentenceGen(seq):
+def sentence_gen(seq):
     result = ""
     for s in seq:
-        result += wordGen(s)
+        result += word_gen(s)
     return result
 
 
@@ -331,14 +331,49 @@ def get_patterns():
         return final
 
 
-def replace_pattern(tuples):
+def sum_syllables_in_verse(verse_tuples):
+    total = 0
+    for idx, (syl, _x) in enumerate(verse_tuples):
+        total += syl
+    return total
+
+
+def format_verse(verse_tuples):
+    verse_string = ""
+    for _x, (_y, hangul) in enumerate(verse_tuples):
+        verse_string += (hangul + "\n")
+    return verse_string
+
+
+def format_lyrics(final_tuples_list):
+    lyrics = ""
+    for verse in final_tuples_list:
+        lyrics += (format_verse(verse) + "\n")
+    return lyrics
+
+
+def generate_sentences_until_it_fits(verse_length):
+    phrase_maybe = sentence_gen(random.choice(sequences))
+    phrase_len = len(phrase_maybe)
+
+
+def replace_pattern(verses):
     # TODO:
-    # use the tuple-replacing code to care about
-    # multiple lines, up to the end of the verse
-    # also we really want to check against space-sep'd strings in the gen'd
-    # words, not individual characters, so we're not starting a line
-    # with a particle or whatever
-    # don't forget to re-join verses with an extra newline!
+    #
+    # future: would be good to check that we're not starting lines on particles
+    # or whatever
+    #
+    # At this point tuples is of the form [[(1,),(1,)],[(1,),(1,)]]
+    #
+    # for verse in verse
+    # sum_syllables_in_verse(verse)
+    # sentence_gen until we have one or more strings with the right char count
+    # to exactly match the above sum
+    # split that sentence based on the first element of each tuple and pack
+    # the split strings into the second element of the tuples
+    # then with the result, call and return format_lyrics(that_stuff)
+
+    return verses
 
     for idx, tup in enumerate(tuples):
         print(idx, tup)
@@ -349,7 +384,7 @@ def replace_pattern(tuples):
             if tup[1] == " ":
                 desired_len = tup[0]
                 while True:
-                    phrase_maybe = sentenceGen(random.choice(sequences))
+                    phrase_maybe = sentence_gen(random.choice(sequences))
                     phrase_len = len(phrase_maybe)
                     if phrase_len == desired_len:
                         tup = tup[0:1] + (phrase_maybe,)
