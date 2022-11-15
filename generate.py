@@ -25,7 +25,7 @@ def josa(noun, type_):
 
     # 이/가
     elif type_ == 2:
-        if korean.hasBatchim(noun[-1]):
+        if korean.has_batchim(noun[-1]):
             return noun + "이"
         else:
             if noun == "나":
@@ -39,13 +39,13 @@ def josa(noun, type_):
         return noun + "의"
     # '을/를'
     elif type_ == 4:
-        if korean.hasBatchim(noun[-1]):
+        if korean.has_batchim(noun[-1]):
             return noun + "을"
         else:
             return noun + "를"
     # '은/는'
     elif type_ == 5:
-        if korean.hasBatchim(noun[-1]):
+        if korean.has_batchim(noun[-1]):
             return noun + "은"
         else:
             return noun + "는"
@@ -54,7 +54,7 @@ def josa(noun, type_):
         return noun + "이다"
     # '와/과'
     elif type_ == 7:
-        if korean.hasBatchim(noun[-1]):
+        if korean.has_batchim(noun[-1]):
             return noun + "과"
         else:
             return noun + "와"
@@ -66,7 +66,7 @@ def hwalyong(yong_eon, type_):
     elif type_ == 2:
         if yong_eon.verb:
             return yong_eon.base + "는"
-        if korean.hasBatchim(yong_eon.last):
+        if korean.has_batchim(yong_eon.last):
             return yong_eon.base + "은"
         tmp = korean.divide(yong_eon.last)
         tmp[2] = "ㄴ"
@@ -76,7 +76,7 @@ def hwalyong(yong_eon, type_):
     elif type_ == 3:
         if yong_eon.nounHa:
             return yong_eon.base[:-1]
-        if korean.hasBatchim(yong_eon.last):
+        if korean.has_batchim(yong_eon.last):
             return yong_eon.base + "음"
         tmp = korean.divide(yong_eon.last)
         tmp[2] = "ㅁ"
@@ -88,7 +88,7 @@ def hwalyong(yong_eon, type_):
     elif type_ == 5:
         return yong_eon.base + "고 싶다"
     elif type_ == 6:
-        if korean.hasBatchim(yong_eon.last):
+        if korean.has_batchim(yong_eon.last):
             return yong_eon.base + "으면"
 
         return yong_eon.base + "면"
@@ -321,8 +321,11 @@ def get_patterns():
                     print("Input should be lines containing a single integer!")
                     sys.exit(1)
 
-        verses = [list(y) for x, y in itertools.groupby(nums, lambda z: z ==
-                                                        "\n") if not x]
+        verses = [
+            list(y)
+            for x, y in itertools.groupby(nums, lambda z: z == "\n")
+            if not x
+        ]
         return verses
 
 
@@ -333,6 +336,8 @@ def generate_sentences_until_it_fits(verse_length):
     while True:
         phrase = sentence_gen(random.choice(sequences))
         phrases.append(phrase)
+        # TODO: need to calculate without whitespace, but preserve
+        # whitespace....
         phrases_lengths = (lambda x: [len(i) for i in x])(phrases)
 
         for i, number in enumerate(phrases_lengths):
@@ -340,11 +345,11 @@ def generate_sentences_until_it_fits(verse_length):
             if complementary in phrases_lengths[i:]:
                 for p in phrases:
                     if len(p) == number:
-                        found_lyrics += (p + " ")
+                        found_lyrics += p + " "
                         break
                 for p in phrases:
                     if len(p) == complementary:
-                        found_lyrics += (p + " ")
+                        found_lyrics += p + " "
                 found_matches = True
                 break
 
@@ -358,7 +363,7 @@ def re_split_verse_lines(verse, verse_lyrics):
     start = 0
     for line in verse:
         # TODO: this needs to not count whitespace in the length
-        res.append(verse_lyrics[start:start+line].strip())
+        res.append(verse_lyrics[start : start + line].strip())
         start += line
     return "\n".join(res)
 
@@ -373,7 +378,7 @@ def replace_pattern(verses):
         sylls = sum(verse)
         verse_lyrics = generate_sentences_until_it_fits(sylls)
         formatted_verse_lyrics = re_split_verse_lines(verse, verse_lyrics)
-        song_lyrics += (formatted_verse_lyrics + "\n\n")
+        song_lyrics += formatted_verse_lyrics + "\n\n"
 
     return song_lyrics.strip()
 

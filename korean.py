@@ -146,7 +146,7 @@ qwerty2kor = {
     "R": "ㄲ",
     "t": "ㅅ",
     "T": "ㅆ",
-    "y": "ㅛ",  # don't forget qwerty2kor.get(x, qwerty2kor[x.lower()])
+    "y": "ㅛ",
     "u": "ㅕ",
     "i": "ㅑ",
     "o": "ㅐ",
@@ -189,7 +189,7 @@ def divide(char):
     ]
 
 
-def hasBatchim(char):
+def has_batchim(char):
     return 0 != ((ord(char) - 44032) % 588) % 28
 
 
@@ -208,16 +208,3 @@ def combine(chars):
         + jong.index(chars[2])
         + 44032
     )
-
-
-def isKor(char):
-    ord_ = ord(char)
-    if 44031 < ord_ < 55204:
-        return True
-    if 12592 < ord_ < 12644:
-        return True
-    return False
-
-
-def forgotHanYoung(chars):
-    pass
