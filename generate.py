@@ -332,38 +332,40 @@ def get_patterns():
 def generate_sentences_until_it_fits(verse_length):
     found_lyrics = ""
     found_matches = False
-    phrases = []
+    phrases = {}
     while True:
         phrase = sentence_gen(random.choice(sequences))
-        phrases.append(phrase)
-        # TODO: need to calculate without whitespace, but preserve
-        # whitespace....
-        phrases_lengths = (lambda x: [len(i) for i in x])(phrases)
+        no_whitespace = phrase.replace(" ", "")
+        phrases[no_whitespace] = phrase
+        phrase_keys = phrases.keys()
+        phrases_lengths = (lambda x: [len(i) for i in x])(phrase_keys)
 
         for i, number in enumerate(phrases_lengths):
             complementary = verse_length - number
             if complementary in phrases_lengths[i:]:
-                for p in phrases:
+                for p in phrase_keys:
                     if len(p) == number:
-                        found_lyrics += p + " "
+                        found_lyrics += phrases[p] + " "
                         break
-                for p in phrases:
+                for p in phrase_keys:
                     if len(p) == complementary:
-                        found_lyrics += p + " "
+                        found_lyrics += phrases[p] + " "
                 found_matches = True
                 break
 
         if found_matches is True:
             break
+
     return found_lyrics
 
 
 def re_split_verse_lines(verse, verse_lyrics):
     res = []
     start = 0
+
     for line in verse:
         # TODO: this needs to not count whitespace in the length
-        res.append(verse_lyrics[start : start + line].strip())
+        res.append(verse_lyrics[start:start + line].strip())
         start += line
     return "\n".join(res)
 
