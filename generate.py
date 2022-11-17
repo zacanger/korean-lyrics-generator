@@ -359,21 +359,26 @@ def generate_sentences_until_it_fits(verse_length):
     return found_lyrics
 
 
-def re_split_verse_lines(verse, verse_lyrics):
+def re_split_verse_lines(verse, verse_l):
+    verse_lyrics = verse_l
     res = []
     start = 0
 
     for line in verse:
-        # TODO: this needs to not count whitespace in the length
-        res.append(verse_lyrics[start:start + line].strip())
+        inner_res = ""
+        for hangul_char in verse_lyrics[start:]:
+            if len(inner_res.replace(" ", "").strip()) == line:
+                res.append(inner_res.strip())
+                break
+            if hangul_char.isspace():
+                start += 1
+            inner_res += hangul_char
         start += line
+
     return "\n".join(res)
 
 
 def replace_pattern(verses):
-    # TODO: (future) would be good to check that we're not starting lines on
-    # particles or whatever
-
     song_lyrics = ""
 
     for verse in verses:
