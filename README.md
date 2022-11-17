@@ -39,7 +39,8 @@ LOONA](https://www.youtube.com/watch?v=XEOCbFJjRw0)):
 
 ## TODO
 
-* Future thoughts: fix so lines aren't starting with particles or whatever
+* Fix so lines aren't starting with particles or whatever
+* Add ability to get a line to repeat
 * Also maybe convert to a webapp?
 
 [LICENSE](./LICENSE.md)
