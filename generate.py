@@ -4,6 +4,7 @@ import sys
 import random
 import collections
 import itertools
+import re
 import korean
 
 
@@ -311,6 +312,8 @@ def get_patterns():
         nums = []
         for line in lines:
             maybe = line.strip()
+            maybe = re.sub("^(#.*)|(\s*)$", "", maybe)
+            print(maybe)
             if maybe.strip() == "":
                 nums.append("\n")
             else:
@@ -364,16 +367,19 @@ def re_split_verse_lines(verse, verse_l):
     res = []
     start = 0
 
-    for line in verse:
+    for idx, line in enumerate(verse):
         inner_res = ""
-        for hangul_char in verse_lyrics[start:]:
-            if len(inner_res.replace(" ", "").strip()) == line:
-                res.append(inner_res.strip())
-                break
-            if hangul_char.isspace():
-                start += 1
-            inner_res += hangul_char
-        start += line
+        if line == 0:
+            res.append(res[idx - 1])
+        else:
+            for hangul_char in verse_lyrics[start:]:
+                if len(inner_res.replace(" ", "").strip()) == line:
+                    res.append(inner_res.strip())
+                    break
+                if hangul_char.isspace():
+                    start += 1
+                inner_res += hangul_char
+            start += line
 
     return "\n".join(res)
 

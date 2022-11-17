@@ -20,9 +20,10 @@ Clone or download the project, and have Python installed.
 `pattern-file` should contain a list of newline-delineated integers representing
 the amount of syllables you want in each line of the resultant lyrics. Example
 (from the first verse of [Butterfly by
-LOONA](https://www.youtube.com/watch?v=XEOCbFJjRw0)):
+LOONA](https://www.youtube.com/watch?v=XEOCbFJjRw0)) with one change:
 
 ```
+# verse
 5
 7
 6
@@ -30,17 +31,20 @@ LOONA](https://www.youtube.com/watch?v=XEOCbFJjRw0)):
 7
 5
 
+# pre
 8
-8
+0
 9
 8
 8
 ```
 
+The `0` represents a line you wish to be a repetition of the previous line.
+Lines beginning with `#` are comments (these only work on their own line!).
+
 ## TODO
 
 * Fix so lines aren't starting with particles or whatever
-* Add ability to get a line to repeat
 * Also maybe convert to a webapp?
 
 [LICENSE](./LICENSE.md)
