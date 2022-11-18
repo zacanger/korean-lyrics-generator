@@ -111,6 +111,7 @@ textarea, pre {
 pre {
   border: 1px solid black;
   flex: 1;
+  cursor: pointer;
 }
 textarea {
   flex: 1;
@@ -146,5 +147,11 @@ textarea {
 8"></textarea>
         <pre id="output"></pre>
     </div>
+    <script type="text/javascript">
+        const output = document.getElementById("output")
+        output.onclick = (ev) => {
+            navigator.clipboard.writeText(output.textContent)
+        }
+    </script>
 </body>
 </html>
