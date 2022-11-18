@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Zac Anger">
+  <title>Korean Lyrics Generator</title>
+    <style type="text/css">
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+body {
+  font-family: monospace;
+  margin: 0;
+      padding: 16px;
+}
+h1 {
+  font-size: 2em;
+  margin: 16px;
+}
+pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+a {
+  background-color: transparent;
+}
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  text-decoration: underline dotted; /* 2 */
+}
+button,
+textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+button { /* 1 */
+  overflow: visible;
+}
+button { /* 1 */
+  text-transform: none;
+}
+button,
+[type="button"] {
+  -webkit-appearance: button;
+}
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+button:-moz-focusring,
+[type="button"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+textarea {
+  overflow: auto;
+}
+button {
+  background-color: lightgrey;
+  border: 2px solid #422800;
+  border-radius: 7px;
+  box-shadow: #422800 2px 2px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  padding: 0 8px;
+  line-height: 30px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button:hover {
+  background-color: #fff;
+}
+
+button:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  button {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
+#wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+#headers {
+  margin: 16px;
+}
+textarea, pre {
+  font-family: monospace;
+  margin: 16px;
+  height: 100vh;
+  max-height: 500px;
+  width: 100%;
+}
+pre {
+  border: 1px solid black;
+  flex: 1;
+}
+textarea {
+  flex: 1;
+}
+</style>
+</head>
+<body onload="brython()">
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.11.0/brython.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.11.0/brython_stdlib.js"></script>
+    <script src="browser.py" type="text/python"></script>
+    <h1>Korean Lyrics Generator</h1>
+    <div id="headers">
+        <button id="generate">Generate</button>
+        &middot;
+        <a href="https://github.com/zacanger/korean-lyrics-generator#readme"
+            rel="nofollow noopener noreferrer"
+            target="_blank">Instructions and Code</a>
+    </div>
+    <div id="wrapper">
+        <textarea id="input" placeholder="# verse
+5
+7
+6
+5
+7
+5
+
+# pre
+8
+0
+9
+8
+8"></textarea>
+        <pre id="output"></pre>
+    </div>
+</body>
+</html>

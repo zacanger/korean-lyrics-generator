@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-
-import sys
 import random
 import collections
 import itertools
@@ -302,34 +299,24 @@ sequences = [
 ]
 
 
-def get_patterns():
-    if len(sys.argv) != 2:
-        print("Usage: generate.py pattern-file")
-        sys.exit(0)
+def get_patterns(lines):
+    nums = []
+    for line in lines:
+        maybe = line.strip()
+        maybe = re.sub("^(#.*)|(\s*)$", "", maybe)
+        if maybe.strip() == "":
+            nums.append("\n")
+        else:
+            num = int(line)
+            nums.append(num)
 
-    with open(sys.argv[1], "r") as pattern_file:
-        lines = pattern_file.readlines()
-        nums = []
-        for line in lines:
-            maybe = line.strip()
-            maybe = re.sub("^(#.*)|(\s*)$", "", maybe)
-            print(maybe)
-            if maybe.strip() == "":
-                nums.append("\n")
-            else:
-                try:
-                    num = int(line)
-                    nums.append(num)
-                except ValueError:
-                    print("Input should be lines containing a single integer!")
-                    sys.exit(1)
+    verses = [
+        list(y)
+        for x, y in itertools.groupby(nums, lambda z: z == "\n")
+        if not x
+    ]
 
-        verses = [
-            list(y)
-            for x, y in itertools.groupby(nums, lambda z: z == "\n")
-            if not x
-        ]
-        return verses
+    return verses
 
 
 def generate_sentences_until_it_fits(verse_length):
@@ -394,13 +381,3 @@ def replace_pattern(verses):
         song_lyrics += formatted_verse_lyrics + "\n\n"
 
     return song_lyrics.strip()
-
-
-def main():
-    syllable_pattern = get_patterns()
-    results = replace_pattern(syllable_pattern)
-    return results
-
-
-if __name__ == "__main__":
-    print(main())

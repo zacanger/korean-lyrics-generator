@@ -9,18 +9,13 @@ who don't speak much Korean. Not intended to produce actual quality lyrics, just
 correct-ish series of syllables in the desired patterns. Originally based on
 [this code](https://github.com/baehyunsol/korean_saying_generator).
 
-## Installation
-
-Clone or download the project, and have Python installed.
-
 ## Usage
 
-`./generate.py pattern-file`
+Go to `https://zacanger.com/korean-lyrics-generator`, or use the CLI (first
+clone or download this repo) with `./cli.py pattern-file`.
 
 `pattern-file` should contain a list of newline-delineated integers representing
-the amount of syllables you want in each line of the resultant lyrics. Example
-(from the first verse of [Butterfly by
-LOONA](https://www.youtube.com/watch?v=XEOCbFJjRw0)) with one change:
+the amount of syllables you want in each line of the resultant lyrics. Example:
 
 ```
 # verse
@@ -45,6 +40,5 @@ Lines beginning with `#` are comments (these only work on their own line!).
 ## TODO
 
 * Fix so lines aren't starting with particles or whatever
-* Also maybe convert to a webapp?
 
 [LICENSE](./LICENSE.md)
