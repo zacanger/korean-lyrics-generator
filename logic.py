@@ -6,10 +6,10 @@ import korean
 
 
 class yong_eon:
-    def __init__(self, base, verb, nounHa, obj):
+    def __init__(self, base, verb, noun_ha, obj):
         self.base = base
         self.verb = verb
-        self.nounHa = nounHa  # ex) 성공 + -하
+        self.noun_ha = noun_ha  # ex) 성공 + -하
         self.obj = obj  # only '-를'
         self.last = self.base[len(self.base) - 1]
 
@@ -72,7 +72,7 @@ def hwalyong(yong_eon, type_):
         return yong_eon.base[:-1] + korean.combine(tmp)
 
     elif type_ == 3:
-        if yong_eon.nounHa:
+        if yong_eon.noun_ha:
             return yong_eon.base[:-1]
         if korean.has_batchim(yong_eon.last):
             return yong_eon.base + "음"
@@ -99,94 +99,96 @@ def _myungsa(yong_eon):
     return hwalyong(yong_eon, 3)
 
 
+# TODO: clean this up with a couple of list comprehensions
 yong_eons = [
-    yong_eon("가", verb=True, nounHa=False, obj=False),
-    yong_eon("경고하", verb=True, nounHa=True, obj=True),
-    yong_eon("결심하", verb=True, nounHa=True, obj=True),
-    yong_eon("공부하", verb=True, nounHa=True, obj=True),
-    yong_eon("관찰하", verb=True, nounHa=True, obj=True),
-    yong_eon("교육하", verb=True, nounHa=True, obj=True),
-    yong_eon("굳", verb=False, nounHa=False, obj=False),
-    yong_eon("극복하", verb=True, nounHa=True, obj=True),
-    yong_eon("기다리", verb=True, nounHa=False, obj=True),
-    yong_eon("기억하", verb=True, nounHa=True, obj=True),
-    yong_eon("깊", verb=False, nounHa=False, obj=False),
-    yong_eon("나타나", verb=True, nounHa=False, obj=False),
-    yong_eon("넘치", verb=True, nounHa=False, obj=False),
-    yong_eon("노래하", verb=True, nounHa=True, obj=True),
-    yong_eon("놓", verb=True, nounHa=False, obj=True),
-    yong_eon("늙", verb=False, nounHa=False, obj=False),
-    yong_eon("닫히", verb=False, nounHa=False, obj=False),
-    yong_eon("던지", verb=True, nounHa=False, obj=True),
-    yong_eon("떠나", verb=True, nounHa=False, obj=True),
-    yong_eon("똑똑하", verb=False, nounHa=False, obj=False),
-    yong_eon("떨어지", verb=True, nounHa=False, obj=False),
-    yong_eon("마시", verb=True, nounHa=False, obj=True),
-    yong_eon("만나", verb=True, nounHa=False, obj=True),
-    yong_eon("매달리", verb=True, nounHa=False, obj=False),
-    yong_eon("먹", verb=True, nounHa=False, obj=True),
-    yong_eon("멍청하", verb=False, nounHa=False, obj=False),
-    yong_eon("미세하", verb=False, nounHa=False, obj=False),
-    yong_eon("미워하", verb=True, nounHa=False, obj=True),
-    yong_eon("미련하", verb=False, nounHa=True, obj=False),
-    yong_eon("미치", verb=False, nounHa=False, obj=False),
-    yong_eon("배고프", verb=False, nounHa=False, obj=False),
-    yong_eon("배우", verb=True, nounHa=False, obj=True),
-    yong_eon("배부르", verb=False, nounHa=False, obj=False),
-    yong_eon("변하", verb=True, nounHa=False, obj=False),
-    yong_eon("보", verb=True, nounHa=False, obj=True),
-    yong_eon("불행하", verb=False, nounHa=True, obj=False),
-    yong_eon("빌리", verb=True, nounHa=False, obj=True),
-    yong_eon("사과하", verb=True, nounHa=True, obj=True),
-    yong_eon("사라지", verb=True, nounHa=False, obj=False),
-    yong_eon("사랑하", verb=True, nounHa=True, obj=True),
-    yong_eon("선택하", verb=True, nounHa=True, obj=True),
-    yong_eon("성공하", verb=False, nounHa=True, obj=True),
-    yong_eon("순수하", verb=False, nounHa=False, obj=False),
-    yong_eon("승리하", verb=False, nounHa=True, obj=False),
-    yong_eon("시작하", verb=True, nounHa=True, obj=True),
-    yong_eon("식사하", verb=True, nounHa=True, obj=False),
-    yong_eon("실패하", verb=False, nounHa=True, obj=True),
-    yong_eon("아프", verb=False, nounHa=False, obj=False),
-    yong_eon("안내하", verb=True, nounHa=True, obj=True),
-    yong_eon("안전하", verb=False, nounHa=True, obj=False),
-    yong_eon("약속하", verb=True, nounHa=True, obj=True),
-    yong_eon("얘기하", verb=True, nounHa=True, obj=True),
-    yong_eon("어색하", verb=False, nounHa=False, obj=False),
-    yong_eon("여행하", verb=True, nounHa=True, obj=True),
-    yong_eon("열리", verb=False, nounHa=False, obj=False),
-    yong_eon("영원하", verb=False, nounHa=True, obj=False),
-    yong_eon("오", verb=True, nounHa=False, obj=False),
-    yong_eon("완벽하", verb=False, nounHa=True, obj=False),
-    yong_eon("외면하", verb=True, nounHa=True, obj=True),
-    yong_eon("움직이", verb=True, nounHa=False, obj=False),
-    yong_eon("위험하", verb=False, nounHa=True, obj=False),
-    yong_eon("웃", verb=True, nounHa=False, obj=False),
-    yong_eon("이별하", verb=True, nounHa=True, obj=False),
-    yong_eon("인정하", verb=True, nounHa=True, obj=True),
-    yong_eon("자", verb=True, nounHa=False, obj=False),
-    yong_eon("젊", verb=False, nounHa=False, obj=False),
-    yong_eon("좋아하", verb=True, nounHa=False, obj=True),
-    yong_eon("죽", verb=False, nounHa=False, obj=False),
-    yong_eon("지나가", verb=True, nounHa=False, obj=True),
-    yong_eon("작", verb=False, nounHa=False, obj=False),
-    yong_eon("청소하", verb=True, nounHa=True, obj=True),
-    yong_eon("채우", verb=True, nounHa=False, obj=True),
-    yong_eon("치열하", verb=False, nounHa=False, obj=False),
-    yong_eon("키우", verb=True, nounHa=False, obj=True),
-    yong_eon("크", verb=False, nounHa=False, obj=False),
-    yong_eon("태어나", verb=False, nounHa=False, obj=False),
-    yong_eon("패배하", verb=False, nounHa=True, obj=False),
-    yong_eon("행복하", verb=False, nounHa=True, obj=False),
-    yong_eon("후회하", verb=True, nounHa=False, obj=True),
-    yong_eon("흐리", verb=False, nounHa=False, obj=False),
-    yong_eon("흩어지", verb=True, nounHa=False, obj=False),
+    yong_eon("가", verb=True, noun_ha=False, obj=False),
+    yong_eon("경고하", verb=True, noun_ha=True, obj=True),
+    yong_eon("결심하", verb=True, noun_ha=True, obj=True),
+    yong_eon("공부하", verb=True, noun_ha=True, obj=True),
+    yong_eon("관찰하", verb=True, noun_ha=True, obj=True),
+    yong_eon("교육하", verb=True, noun_ha=True, obj=True),
+    yong_eon("굳", verb=False, noun_ha=False, obj=False),
+    yong_eon("극복하", verb=True, noun_ha=True, obj=True),
+    yong_eon("기다리", verb=True, noun_ha=False, obj=True),
+    yong_eon("기억하", verb=True, noun_ha=True, obj=True),
+    yong_eon("깊", verb=False, noun_ha=False, obj=False),
+    yong_eon("나타나", verb=True, noun_ha=False, obj=False),
+    yong_eon("넘치", verb=True, noun_ha=False, obj=False),
+    yong_eon("노래하", verb=True, noun_ha=True, obj=True),
+    yong_eon("놓", verb=True, noun_ha=False, obj=True),
+    yong_eon("늙", verb=False, noun_ha=False, obj=False),
+    yong_eon("닫히", verb=False, noun_ha=False, obj=False),
+    yong_eon("던지", verb=True, noun_ha=False, obj=True),
+    yong_eon("떠나", verb=True, noun_ha=False, obj=True),
+    yong_eon("똑똑하", verb=False, noun_ha=False, obj=False),
+    yong_eon("떨어지", verb=True, noun_ha=False, obj=False),
+    yong_eon("마시", verb=True, noun_ha=False, obj=True),
+    yong_eon("만나", verb=True, noun_ha=False, obj=True),
+    yong_eon("매달리", verb=True, noun_ha=False, obj=False),
+    yong_eon("먹", verb=True, noun_ha=False, obj=True),
+    yong_eon("멍청하", verb=False, noun_ha=False, obj=False),
+    yong_eon("미세하", verb=False, noun_ha=False, obj=False),
+    yong_eon("미워하", verb=True, noun_ha=False, obj=True),
+    yong_eon("미련하", verb=False, noun_ha=True, obj=False),
+    yong_eon("미치", verb=False, noun_ha=False, obj=False),
+    yong_eon("배고프", verb=False, noun_ha=False, obj=False),
+    yong_eon("배우", verb=True, noun_ha=False, obj=True),
+    yong_eon("배부르", verb=False, noun_ha=False, obj=False),
+    yong_eon("변하", verb=True, noun_ha=False, obj=False),
+    yong_eon("보", verb=True, noun_ha=False, obj=True),
+    yong_eon("불행하", verb=False, noun_ha=True, obj=False),
+    yong_eon("빌리", verb=True, noun_ha=False, obj=True),
+    yong_eon("사과하", verb=True, noun_ha=True, obj=True),
+    yong_eon("사라지", verb=True, noun_ha=False, obj=False),
+    yong_eon("사랑하", verb=True, noun_ha=True, obj=True),
+    yong_eon("선택하", verb=True, noun_ha=True, obj=True),
+    yong_eon("성공하", verb=False, noun_ha=True, obj=True),
+    yong_eon("순수하", verb=False, noun_ha=False, obj=False),
+    yong_eon("승리하", verb=False, noun_ha=True, obj=False),
+    yong_eon("시작하", verb=True, noun_ha=True, obj=True),
+    yong_eon("식사하", verb=True, noun_ha=True, obj=False),
+    yong_eon("실패하", verb=False, noun_ha=True, obj=True),
+    yong_eon("아프", verb=False, noun_ha=False, obj=False),
+    yong_eon("안내하", verb=True, noun_ha=True, obj=True),
+    yong_eon("안전하", verb=False, noun_ha=True, obj=False),
+    yong_eon("약속하", verb=True, noun_ha=True, obj=True),
+    yong_eon("얘기하", verb=True, noun_ha=True, obj=True),
+    yong_eon("어색하", verb=False, noun_ha=False, obj=False),
+    yong_eon("여행하", verb=True, noun_ha=True, obj=True),
+    yong_eon("열리", verb=False, noun_ha=False, obj=False),
+    yong_eon("영원하", verb=False, noun_ha=True, obj=False),
+    yong_eon("오", verb=True, noun_ha=False, obj=False),
+    yong_eon("완벽하", verb=False, noun_ha=True, obj=False),
+    yong_eon("외면하", verb=True, noun_ha=True, obj=True),
+    yong_eon("움직이", verb=True, noun_ha=False, obj=False),
+    yong_eon("위험하", verb=False, noun_ha=True, obj=False),
+    yong_eon("웃", verb=True, noun_ha=False, obj=False),
+    yong_eon("이별하", verb=True, noun_ha=True, obj=False),
+    yong_eon("인정하", verb=True, noun_ha=True, obj=True),
+    yong_eon("자", verb=True, noun_ha=False, obj=False),
+    yong_eon("젊", verb=False, noun_ha=False, obj=False),
+    yong_eon("좋아하", verb=True, noun_ha=False, obj=True),
+    yong_eon("죽", verb=False, noun_ha=False, obj=False),
+    yong_eon("지나가", verb=True, noun_ha=False, obj=True),
+    yong_eon("작", verb=False, noun_ha=False, obj=False),
+    yong_eon("청소하", verb=True, noun_ha=True, obj=True),
+    yong_eon("채우", verb=True, noun_ha=False, obj=True),
+    yong_eon("치열하", verb=False, noun_ha=False, obj=False),
+    yong_eon("키우", verb=True, noun_ha=False, obj=True),
+    yong_eon("크", verb=False, noun_ha=False, obj=False),
+    yong_eon("태어나", verb=False, noun_ha=False, obj=False),
+    yong_eon("패배하", verb=False, noun_ha=True, obj=False),
+    yong_eon("행복하", verb=False, noun_ha=True, obj=False),
+    yong_eon("후회하", verb=True, noun_ha=False, obj=True),
+    yong_eon("흐리", verb=False, noun_ha=False, obj=False),
+    yong_eon("흩어지", verb=True, noun_ha=False, obj=False),
 ]
 
-objYongEons = list(filter(lambda x: x.obj, yong_eons))
+obj_yong_eons = list(filter(lambda x: x.obj, yong_eons))
 verbs = list(filter(lambda x: x.verb, yong_eons))
-adjs = list(filter(lambda x: not x.verb, yong_eons))
-objVerbs = list(filter(lambda x: x.obj, verbs))
+# TODO: use this
+# adjs = list(filter(lambda x: not x.verb, yong_eons))
+obj_verbs = list(filter(lambda x: x.obj, verbs))
 
 nouns = list(map(_myungsa, yong_eons))
 
@@ -276,9 +278,9 @@ def word_gen(type_):
     # yong_eons with obj
     elif type_ // 10 == 2:
         if type_ % 10 == 4:
-            return hwalyong(random.choice(objVerbs), 4)
+            return hwalyong(random.choice(obj_verbs), 4)
 
-        return hwalyong(random.choice(objYongEons), type_ % 10) + " "
+        return hwalyong(random.choice(obj_yong_eons), type_ % 10) + " "
 
 
 def sentence_gen(seq):

@@ -100,6 +100,7 @@ jong = (
     "ㅎ",
 )
 
+# TODO: use this
 ja = (
     "ㄱ",
     "ㄲ",
@@ -132,8 +133,6 @@ ja = (
     "ㅍ",
     "ㅎ",
 )
-
-mo = joong
 
 
 def divide(char):
