@@ -14,11 +14,11 @@
         body {
             font-family: monospace;
             margin: 0;
-            padding: 16px;
+            padding: 8px;
         }
         h1 {
             font-size: 2em;
-            margin: 16px;
+            margin: 8px;
         }
         pre {
             font-family: monospace;
@@ -28,6 +28,9 @@
             background-color: transparent;
             transition: color .2s;
             color: #265C83;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+            display: block;
         }
         a:link,
         a:visited {
@@ -101,7 +104,7 @@
         @media (min-width: 760px) {
             button {
                 min-width: 120px;
-                padding: 0 25px;
+                padding: 0 16px;
             }
         }
         #wrapper {
@@ -113,7 +116,7 @@
         }
         textarea, pre {
             font-family: monospace;
-            margin: 16px;
+            margin: 8px;
             height: 100vh;
             max-height: 500px;
             flex: 1;
@@ -132,7 +135,7 @@
             }
         }
         #headers {
-            margin: 16px;
+            margin: 8px;
         }
         @media screen and (prefers-color-scheme: dark) {
             body {
@@ -151,14 +154,16 @@
     <script src="browser.py" type="text/python"></script>
     <h1>Korean Lyrics Generator</h1>
     <div id="headers">
-        <button id="generate">Generate</button>
-        &middot;
         <a href="https://github.com/zacanger/korean-lyrics-generator#readme"
             rel="nofollow noopener noreferrer"
             target="_blank">Instructions and Code</a>
+        <br>
+        <button id="generate">Generate</button>
     </div>
     <div id="wrapper">
-        <textarea id="input" placeholder="# verse
+        <textarea id="input" placeholder="# this is an example
+# see the Instructions link above for details on the format
+# verse
 5
 7
 6
