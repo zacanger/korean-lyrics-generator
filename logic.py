@@ -321,6 +321,33 @@ def get_patterns(lines):
     return verses
 
 
+bad_line_beginning_suffixes = [
+    "이",
+    "가",
+    "을",
+    "를",
+    "은",
+    "는",
+    "이다",
+    "다",
+    "과",
+    "와",
+    "음",
+    "싶다",
+    "으면",
+    "면",
+    "고",
+]
+
+
+def has_uncomfortable_feeling_lines(verse_lyrics):
+    verse_lines = verse_lyrics.split("\n")
+    for line in verse_lines:
+        for suffix in bad_line_beginning_suffixes:
+            if line.startswith(suffix + " "):
+                return True
+
+
 def generate_sentences_until_it_fits(verse_length):
     found_lyrics = ""
     found_matches = False
@@ -373,13 +400,20 @@ def re_split_verse_lines(verse, verse_l):
     return "\n".join(res)
 
 
+def build_verse(verse):
+    sylls = sum(verse)
+    verse_lyrics = generate_sentences_until_it_fits(sylls)
+    formatted_verse_lyrics = re_split_verse_lines(verse, verse_lyrics)
+    return formatted_verse_lyrics
+
+
 def replace_pattern(verses):
     song_lyrics = ""
 
     for verse in verses:
-        sylls = sum(verse)
-        verse_lyrics = generate_sentences_until_it_fits(sylls)
-        formatted_verse_lyrics = re_split_verse_lines(verse, verse_lyrics)
+        formatted_verse_lyrics = build_verse(verse)
+        while has_uncomfortable_feeling_lines(formatted_verse_lyrics):
+            formatted_verse_lyrics = build_verse(verse)
         song_lyrics += formatted_verse_lyrics + "\n\n"
 
     return song_lyrics.strip()

@@ -37,8 +37,4 @@ the amount of syllables you want in each line of the resultant lyrics. Example:
 The `0` represents a line you wish to be a repetition of the previous line.
 Lines beginning with `#` are comments (these only work on their own line!).
 
-## TODO
-
-* Fix so lines aren't starting with particles or whatever
-
 [LICENSE](./LICENSE.md)
